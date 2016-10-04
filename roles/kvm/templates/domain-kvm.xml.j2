@@ -1,0 +1,14 @@
+<domain type='kvm'>
+  <name>shared-guest</name>
+  <memory unit='MB'>4096</memory>
+  <vcpu>2</vcpu>
+  <os>
+    <type>hvm</type>
+  </os>
+  <devices>
+    <disk type='volume' device='disk'>
+      <source pool='vms' volume='shared-guest.qcow2'/>
+      <target dev='hda'/>
+    </disk>
+  </devices>
+</domain>
