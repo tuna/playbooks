@@ -39,3 +39,12 @@
   with_items:
     - iso
     - vms
+
+- name: define nat network
+  virt_net: name=nat command=define xml='{{ lookup("template", "net-nat.xml.j2") }}'
+
+- name: start nat network
+  virt_net: name=nat state=active
+
+- name: enable nat network
+  virt_net: name=nat autostart=yes
