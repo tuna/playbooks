@@ -1,0 +1,6 @@
+---
+- name: refresh pool for vms
+  command: virsh pool-refresh vms
+
+- name: refresh pool for iso
+  command: virsh pool-refresh iso

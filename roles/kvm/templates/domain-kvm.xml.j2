@@ -4,11 +4,20 @@
   <vcpu>2</vcpu>
   <os>
     <type>hvm</type>
+    <boot dev='hd'/>
+    <boot dev='cdrom'/>
   </os>
   <devices>
     <disk type='volume' device='disk'>
       <source pool='vms' volume='shared-guest.qcow2'/>
       <target dev='hda'/>
     </disk>
+    <disk type='volume' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source pool='iso' volume='debian-8.6.0-amd64-netinst.iso'/>
+      <target dev='hdc' bus='ide'/>
+      <readonly/>
+    </disk>
   </devices>
+
 </domain>
