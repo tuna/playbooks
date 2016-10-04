@@ -1,0 +1,9 @@
+---
+- name: install required packages
+  apt: name={{item}}
+  with_items:
+    - qemu-kvm
+    - libvirt-bin
+
+- name: ensure that libvirtd has been started correctly
+  service: name=libvirtd state=started enabled=yes
