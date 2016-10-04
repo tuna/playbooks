@@ -4,15 +4,38 @@
   with_items:
     - qemu-kvm
     - libvirt-bin
+    - python-libvirt
+    - python-lxml
 
 - name: ensure that libvirtd has been started correctly
   service: name=libvirtd state=started enabled=yes
 
-- name: create directory for iso
-  file: path=/data/iso/ state=directory
+- name: create directory for iso and vms
+  file: path=/data/{{item}} state=directory
+  with_items:
+    - iso
+    - vms
 
 - name: download netinst iso for jessie
   get_url:
     url: https://mirrors.tuna.tsinghua.edu.cn/debian-cd/8.6.0/amd64/iso-cd/debian-8.6.0-amd64-netinst.iso
     dest: /data/iso/
     checksum: sha256:9479c5c2df72ae3878116c43fb42eefae53d1fe363ce514a6afc8289064b9f5f
+
+- name: define pools for iso and vms
+  virt_pool: name="{{item}}" command=define xml='{{ lookup("template", "pool-dir.xml.j2") }}'
+  with_items:
+    - iso
+    - vms
+
+- name: start pools
+  virt_pool: name="{{item}}" state=active
+  with_items:
+    - iso
+    - vms
+
+- name: enable pools
+  virt_pool: name="{{item}}" autostart=yes
+  with_items:
+    - iso
+    - vms
