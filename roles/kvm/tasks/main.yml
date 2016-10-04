@@ -66,5 +66,11 @@
 - name: enable nat network
   virt_net: name=nat autostart=yes
 
+- name: create directory for preseeds
+  file: path=/tmp/preseeds state=directory mode="u=rwx"
+
+- name: upload preseed
+  template: src=preseed.j2 dest=/tmp/preseeds/preseed-shared-guest.txt mode="u=rw"
+
 - name: define the guest
   virt: name="shared-guest" command=define xml='{{ lookup("template", "domain-kvm.xml.j2") }}'
