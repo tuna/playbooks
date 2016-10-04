@@ -6,6 +6,10 @@
     <type>hvm</type>
     <boot dev='hd'/>
     <boot dev='cdrom'/>
+    <bios useserial='yes' rebootTimeout='0'/>
+    <kernel>/data/iso/vmlinuz</kernel>
+    <initrd>/data/iso/initrd.gz</initrd>
+    <cmdline>console=ttyS0</cmdline>
   </os>
   <devices>
     <disk type='volume' device='disk'>
@@ -21,6 +25,12 @@
     <interface type='network'>
       <source network='nat'/>
     </interface>
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
   </devices>
 
 </domain>

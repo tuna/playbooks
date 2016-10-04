@@ -24,6 +24,16 @@
   notify:
     - refresh pool for iso
 
+- name: download initrd and kernel for installer
+  get_url:
+    url: https://mirrors.tuna.tsinghua.edu.cn/debian/dists/jessie/main/installer-amd64/current/images/cdrom/{{item}}
+    dest: /data/iso/
+  with_items:
+    - vmlinuz
+    - initrd.gz
+  notify:
+    - refresh pool for iso
+
 - name: create volume for guest
   qemu_img: dest=/data/vms/shared-guest.qcow2 size=102400
   notify:
