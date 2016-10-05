@@ -91,3 +91,15 @@
 
 - name: start caddy
   command: daemon -n caddy -- /opt/caddy/caddy -conf=/tmp/Caddyfile
+
+- name: start the guest
+  virt: name="shared-guest" state=running
+
+- name: wait for installation finished
+  wait_for: path=/tmp/shared-guest-serial0.log search_regex=completed
+
+- name: undefine and destroy the guest
+  virt: name="shared-guest" command={{item}}
+  with_items:
+    - undefine
+    - destroy
