@@ -9,7 +9,7 @@
     <bios useserial='yes' rebootTimeout='0'/>
     <kernel>/data/iso/vmlinuz</kernel>
     <initrd>/data/iso/initrd.gz</initrd>
-    <cmdline>console=ttyS0 auto url="http://192.168.101.1:2015/preseed-shared-guest.txt"</cmdline>
+    <cmdline>console=ttyS0 auto=true priority=critical url="http://192.168.101.1:2015/preseed-shared-guest.txt" interface=auto netcfg/dhcp_timeout=60</cmdline>
   </os>
   <devices>
     <disk type='volume' device='disk'>
