@@ -6,6 +6,7 @@
     - libvirt-bin
     - python-libvirt
     - python-lxml
+    - daemon
 
 - name: ensure that libvirtd has been started correctly
   service: name=libvirtd state=started enabled=yes
