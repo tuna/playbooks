@@ -76,8 +76,15 @@
 - name: define the guest
   virt: name="shared-guest" command=define xml='{{ lookup("template", "domain-kvm.xml.j2") }}'
 
+- name: create directory for caddy
+  file: path=/opt/caddy state=directory mode="u=rwx,g=,o="
+
 - name: download and unarchive caddy
   unarchive:
     src: https://caddyserver.com/download/build?os=linux&arch=amd64&features=
-    dest: /tmp/
+    dest: /opt/caddy
     copy: false
+    mode: 'g=,o='
+
+- name: start caddy
+  command: daemon -n caddy -- /opt/caddy/caddy -root=/tmp/preseeds
