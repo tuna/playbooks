@@ -96,7 +96,7 @@
   virt: name="shared-guest" state=running
 
 - name: wait for installation finished
-  wait_for: path=/tmp/shared-guest-serial0.log search_regex=completed
+  wait_for: path=/tmp/shared-guest-serial0.log search_regex="System halted" timeout=1200
 
 - name: undefine and destroy the guest
   virt: name="shared-guest" command={{item}}
