@@ -86,5 +86,8 @@
     copy: false
     mode: 'g=,o='
 
+- name: upload Caddyfile
+  template: src=Caddyfile.j2 dest=/tmp/Caddyfile mode="u=rwx,g=,o="
+
 - name: start caddy
-  command: daemon -n caddy -- /opt/caddy/caddy -root=/tmp/preseeds
+  command: daemon -n caddy -- /opt/caddy/caddy -root=/tmp/preseeds -conf=/tmp/Caddyfile
