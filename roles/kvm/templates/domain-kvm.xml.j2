@@ -25,7 +25,8 @@
     <interface type='network'>
       <source network='nat'/>
     </interface>
-    <serial type='pty'>
+    <serial type='file'>
+      <source path="/tmp/shared-guest-serial0.log"/>
       <target port='0'/>
     </serial>
     <console type='pty'>
