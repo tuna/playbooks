@@ -111,11 +111,11 @@ d-i mirror/http/proxy string
 # use sudo).
 #d-i passwd/root-login boolean false
 # Alternatively, to skip creation of a normal user account.
-#d-i passwd/make-user boolean false
+d-i passwd/make-user boolean false
 
 # Root password, either in clear text
-#d-i passwd/root-password password r00tme
-#d-i passwd/root-password-again password r00tme
+d-i passwd/root-password password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
+d-i passwd/root-password-again password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
 # or encrypted using an MD5 hash.
 #d-i passwd/root-password-crypted password [MD5 hash]
 
