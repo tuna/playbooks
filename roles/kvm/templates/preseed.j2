@@ -109,22 +109,22 @@ d-i mirror/http/proxy string
 ### Account setup
 # Skip creation of a root account (normal user account will be able to
 # use sudo).
-#d-i passwd/root-login boolean false
+d-i passwd/root-login boolean false
 # Alternatively, to skip creation of a normal user account.
-d-i passwd/make-user boolean false
+#d-i passwd/make-user boolean false
 
 # Root password, either in clear text
-d-i passwd/root-password password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
-d-i passwd/root-password-again password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
+#d-i passwd/root-password password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
+#d-i passwd/root-password-again password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
 # or encrypted using an MD5 hash.
 #d-i passwd/root-password-crypted password [MD5 hash]
 
 # To create a normal user account.
-#d-i passwd/user-fullname string Debian User
-#d-i passwd/username string debian
+d-i passwd/user-fullname string Initial Tunar
+d-i passwd/username string {{ hostvars['kvm-guest']['ansible_user'] }}
 # Normal user's password, either in clear text
-#d-i passwd/user-password password insecure
-#d-i passwd/user-password-again password insecure
+d-i passwd/user-password password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
+d-i passwd/user-password-again password {{ hostvars['kvm-guest']['ansible_ssh_pass'] }}
 # or encrypted using an MD5 hash.
 #d-i passwd/user-password-crypted password [MD5 hash]
 # Create the first user with the specified UID instead of the default.
