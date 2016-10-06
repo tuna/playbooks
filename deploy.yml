@@ -1,12 +1,16 @@
 ---
 - hosts: kvm-host
   become: yes
+  vars_prompt:
+    - name: "confirm"
+      prompt: "This playbook will ERASE pre-installed shared-guest, are you sure?(type YES)"
   pre_tasks:
     - assert:
         that:
           - "ansible_distribution == 'Debian'"
           - "ansible_distribution_major_version == '8'"
           - "ansible_architecture == 'x86_64'"
+          - "confirm == 'YES'"
 
   roles:
     - kvm
