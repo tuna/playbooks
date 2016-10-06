@@ -92,6 +92,9 @@
 - name: start caddy
   command: daemon -n caddy -- /opt/caddy/caddy -conf=/tmp/Caddyfile
 
+- name: remove the old log
+  file: path=/tmp/shared-guest-serial0.log state=absent
+
 - name: start the guest
   virt: name="shared-guest" state=running
 
@@ -103,3 +106,8 @@
   with_items:
     - undefine
     - destroy
+
+- set_fact: installed=yes
+
+- name: redefine the guest
+  virt: name="shared-guest" command=define xml='{{ lookup("template", "domain-kvm.xml.j2") }}'
