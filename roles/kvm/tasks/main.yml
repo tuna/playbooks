@@ -101,7 +101,7 @@
 - name: remove the old log
   file: path=/tmp/shared-guest-serial0.log state=absent
 
-- name: start the guest
+- name: start the installation
   virt: name="shared-guest" state=running
 
 - name: wait for installation finished
