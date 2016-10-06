@@ -73,6 +73,12 @@
 - name: upload preseed
   template: src=preseed.j2 dest=/tmp/preseeds/preseed-shared-guest.txt mode="u=rw,g=,o="
 
+- name: destroy and undefine pre-installed guest, or following defining does not work
+  virt: name="shared-guest" command={{item}}
+  with_items:
+    - undefine
+    - destroy
+
 - name: define the guest
   virt: name="shared-guest" command=define xml='{{ lookup("template", "domain-kvm.xml.j2") }}'
 
