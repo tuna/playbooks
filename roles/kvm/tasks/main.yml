@@ -123,3 +123,26 @@
 
 - name: start the guest
   virt: name="shared-guest" state=running
+
+- name: set up DNAT for ssh
+  iptables:
+    table: nat
+    chain: PREROUTING
+    in_interface: eth0
+    protocol: tcp
+    match: tcp
+    destination_port: "{{ hostvars['kvm-guest']['ansible_port'] }}"
+    jump: DNAT
+    to_destination: 192.168.101.100:22
+    comment: DNAT rule for ssh service of everest
+
+- name: enable forwarding for ssh
+  iptables:
+    action: insert
+    chain: FORWARD
+    in_interface: eth0
+    destination: 192.168.101.100
+    destination_port: 22
+    protocol: tcp
+    jump: ACCEPT
+    comment: allow ssh connection for everest to be forwarded
