@@ -1,0 +1,6 @@
+---
+- name: install required packages
+  apt: name={{item}}
+  with_items:
+    - nslcd
+    - nscd
