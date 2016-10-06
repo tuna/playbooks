@@ -111,3 +111,6 @@
 
 - name: redefine the guest
   virt: name="shared-guest" command=define xml='{{ lookup("template", "domain-kvm.xml.j2") }}'
+
+- name: start the guest
+  virt: name="shared-guest" state=running
