@@ -1,6 +1,47 @@
 ---
+- name: enable backports
+  apt_repository: repo='deb http://mirrors.tuna.tsinghua.edu.cn/debian jessie-backports main contrib non-free'
+
 - name: install required packages
   apt: name={{item}}
   with_items:
     - nslcd
     - nscd
+    - git
+    - golang-1.6
+
+- name: download and install tunaccount
+  command: /usr/lib/go-1.6/bin/go get github.com/tuna/tunaccount
+  environment:
+    GOPATH: /opt/tunaccount
+
+- name: upload configuration for tunaccount
+  template: src=tunaccountd.j2 dest=/etc/tunaccountd.conf
+
+- name: install service for tunaccountd
+  template: src=tunaccountd.service.j2 dest=/etc/systemd/system/tunaccountd.service
+
+- name: remove default base in configuration of nslcd
+  lineinfile:
+    line: base dc=example,dc=net
+    dest: /etc/nslcd.conf
+    state: absent
+
+- name: set correct base according to README of tunaccount
+  blockinfile:
+    dest: /etc/nslcd.conf
+    block: |
+      base o=tuna
+      base passwd ou=people,tag=everest,o=tuna
+      base shadow ou=people,tag=everest,o=tuna
+      base group ou=groups,tag=everest,o=tuna
+
+- name: start and enable nslcd and nscd
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - nslcd
+    - nscd
+
+# This should be at the bottom or given password may not working
+- name: enable and start tunaccount
+  service: name=tunaccountd state=started enabled=yes

@@ -1,0 +1,10 @@
+[Unit]
+Description=TUNAaccount daemon
+After=network.target
+
+[Service]
+Restart=always
+ExecStart=/opt/tunaccount/bin/tunaccount -c /etc/tunaccountd.conf daemon
+
+[Install]
+WantedBy=multi-user.service

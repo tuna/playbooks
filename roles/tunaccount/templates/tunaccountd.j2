@@ -1,0 +1,24 @@
+read_only = true
+
+[database]
+backend = "mongodb"
+addr = "192.168.101.1"
+port = 27017
+name = "tunaccount"
+
+[ldap]
+listen_addr = "127.0.0.1" 
+listen_port = 389
+suffix = "o=tuna"
+
+[http]
+listen_addr = "127.0.0.1"
+listen_port = 9501
+
+[tunaccount]
+minimum_uid = 3000
+minimum_gid = 3000
+default_gid = 1500
+
+# vim: ft=toml
+
