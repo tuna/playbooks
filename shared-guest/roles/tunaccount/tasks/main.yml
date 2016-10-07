@@ -56,6 +56,11 @@
     - group
     - shadow
 
+- name: config pam to make home for users
+  lineinfile:
+    line: session required        pam_mkhomedir.so        skel=/etc/skel  umask=0022
+    dest: /etc/pam.d/common-session
+
 # This should be at the bottom or given password may not working
 - name: enable and start tunaccount
   service: name=tunaccountd state=started enabled=yes
