@@ -61,6 +61,13 @@
     line: session required        pam_mkhomedir.so        skel=/etc/skel  umask=0022
     dest: /etc/pam.d/common-session
 
+- name: install additional packages for users
+  apt: name={{item}}
+  with_items:
+    - zsh
+    - vim
+    - tmux
+
 # This should be at the bottom or given password may not working
 - name: enable and start tunaccount
   service: name=tunaccountd state=started enabled=yes
