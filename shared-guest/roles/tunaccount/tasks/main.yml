@@ -27,7 +27,7 @@
     dest: /etc/nslcd.conf
     state: absent
   notify:
-    - restart nslcd
+    - restart nslcd and nscd
 
 - name: set correct base according to README of tunaccount
   blockinfile:
@@ -38,7 +38,7 @@
       base shadow ou=people,o=tuna
       base group ou=groups,o=tuna
   notify:
-    - restart nslcd
+    - restart nslcd and nscd
 
 - name: start and enable nslcd and nscd
   service: name={{item}} state=started enabled=yes
