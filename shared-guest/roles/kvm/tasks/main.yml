@@ -108,6 +108,9 @@
 - name: wait for installation finished
   wait_for: path=/tmp/shared-guest-serial0.log search_regex="System halted" timeout=1200
 
+- name: delete preseed
+  file: path=/tmp/preseeds/preseed-shared-guest.txt state=absent
+
 - name: stop caddy
   command: daemon -n caddy --stop
 
