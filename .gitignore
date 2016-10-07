@@ -5,3 +5,6 @@
 *.retry
 
 hosts
+
+# venv to install latest ansible
+venv
