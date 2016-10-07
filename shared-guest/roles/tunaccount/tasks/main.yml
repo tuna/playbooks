@@ -46,6 +46,16 @@
     - nslcd
     - nscd
 
+- name: configure nsswitch
+  lineinfile:
+    line: "{{item}}:         files ldap"
+    dest: /etc/nsswitch.conf
+    regexp: "^{{item}}:.*$"
+  with_items:
+    - passwd
+    - group
+    - shadow
+
 # This should be at the bottom or given password may not working
 - name: enable and start tunaccount
   service: name=tunaccountd state=started enabled=yes
