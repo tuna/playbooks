@@ -78,6 +78,7 @@
   with_items:
     - undefine
     - destroy
+  ignore_errors: yes
 
 - name: define the guest
   virt: name="shared-guest" command=define xml='{{ lookup("template", "domain-kvm.xml.j2") }}'
