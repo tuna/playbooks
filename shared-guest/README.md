@@ -11,7 +11,7 @@ Pre-Prepare
 -----------
 
 * ansible > 2.2 (currently rc)
-* access and sudo permission to alfa
+* access to alfa and sudo permission on alfa
 
 当前ansible 2.2还在rc，所以用发行版或者用pypi都装不了（摔！），所以直接从github装：
 
