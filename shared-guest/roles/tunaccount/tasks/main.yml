@@ -32,9 +32,9 @@
     dest: /etc/nslcd.conf
     block: |
       base o=tuna
-      base passwd ou=people,tag=everest,o=tuna
-      base shadow ou=people,tag=everest,o=tuna
-      base group ou=groups,tag=everest,o=tuna
+      base passwd ou=people,o=tuna
+      base shadow ou=people,o=tuna
+      base group ou=groups,o=tuna
 
 - name: start and enable nslcd and nscd
   service: name={{item}} state=started enabled=yes
